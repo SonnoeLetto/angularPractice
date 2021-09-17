@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <h2>{{ productTitle }}</h2>
+    <div class="col-md-2">
+      <p>Filter by:</p>
+    </div>
+    <div class="col-md-2">
+      <input type="text" [(ngModel)]="listFilter" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Filtered by: {{ listFilter }}</h4>
+    </div>
+  </div>
+  <div class="table-responsive" *ngIf="products.length">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            <button (click)="onClick()" class="btn btn-primary">
+              {{ flag ? "Hide" : "Show" }} image
+            </button>
+          </th>
+          <th>product</th>
+          <th>code</th>
+          <th>avaliable</th>
+          <th>price</th>
+          <th>5 star rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredProducts">
+          <td>
+            <img
+              [style.width.px]="imageWidth"
+              [src]="item.img"
+              [title]="item.name"
+              *ngIf="flag"
+            />
+          </td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.code | lowercase | convertToSpaces: "-" }}</td>
+          <td>{{ item.evailable }}</td>
+          <td>{{ item.price | currency: "USD":"symbol":"1.2-2" }}</td>
+          <td>{{ item.rating }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
